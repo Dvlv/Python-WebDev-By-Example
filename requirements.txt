@@ -2,6 +2,7 @@ atomicwrites==1.2.1
 attrs==18.2.0
 click==6.7
 Flask==1.0.2
+Flask-WTF==0.14.2
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0
