@@ -1,10 +1,15 @@
 from peewee import *
 from playhouse.sqlite_ext import SqliteExtDatabase
 
-database = SqliteExtDatabase("database.db")
+db = SqliteExtDatabase("database.db")
 
 
 class BaseModel(Model):
     class Meta:
-        database = database
+        database = db
 
+    def update_from_form(self, data):
+        for k, v in data.items():
+            setattr(self, k, v)
+
+        self.save()

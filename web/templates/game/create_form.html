@@ -1,0 +1,30 @@
+<form name="create_game_form" method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="form-element">
+        {{form.title.label}}
+        {{form.title}}
+        {% for error in form.title.errors%}
+            <span class="error">{{error}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-element">
+        {{form.platform.label}}
+        {{form.platform}}
+        {% for error in form.platform.errors%}
+            <span class="error">{{error}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-element">
+        {{form.release_year.label}}
+        {{form.release_year}}
+        {% for error in form.release_year.errors%}
+            <span class="error">{{error}}</span>
+        {% endfor %}
+    </div>
+
+    {{ form.save }}
+
+</form>
