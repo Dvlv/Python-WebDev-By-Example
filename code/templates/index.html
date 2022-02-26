@@ -1,0 +1,10 @@
+<h1>Welcome to my shop!</h1>
+<hr>
+<table>
+    {% for product_name, price in products.items() %}
+    <tr>
+        <td>{{product_name}}</td>
+        <td>{{ "£%.2f"|format(price) }}</td>
+    </tr>
+    {% endfor %}
+</table>
