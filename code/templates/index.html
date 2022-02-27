@@ -1,10 +1,11 @@
-<h1>Welcome to my shop!</h1>
-<hr>
+{% extends "base.html" %}
+{% block content %}
 <table>
     {% for product_name, price in products.items() %}
     <tr>
-        <td>{{product_name}}</td>
+        <td><a href="/{{product_name}}">{{product_name}}</a></td>
         <td>{{ "£%.2f"|format(price) }}</td>
     </tr>
     {% endfor %}
 </table>
+{% endblock %}
