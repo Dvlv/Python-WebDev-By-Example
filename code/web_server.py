@@ -1,4 +1,5 @@
 from flask import Flask, render_template, abort
+from models.product import Product
 
 app = Flask(__name__)
 app.secret_key = "very secret"
@@ -6,22 +7,19 @@ app.secret_key = "very secret"
 
 @app.route("/")
 def index():
-    products = {"toothpaste": 2.00, "toothbrush": 1.50, "floss": 0.99}
+    products = Product.select()
     return render_template("index.html", products=products)
 
 
 @app.route("/<string:product_name>")
 def view_product(product_name):
-    products = {"toothpaste": 2.00, "toothbrush": 1.50, "floss": 0.99}
+    product = Product.get_or_none(Product.name == product_name)
 
-    price = None
-    if product_name in products:
-        price = products[product_name]
-    else:
-        abort(404)
+    if not product:
+        return abort(404)
 
     return render_template(
-        "products/view_product.html", price=price, product_name=product_name
+        "products/view_product.html", price=product.price, product_name=product_name
     )
 
 

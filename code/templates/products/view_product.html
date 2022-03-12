@@ -2,7 +2,7 @@
 {% block content %}
 <h2>{{product_name}}</h2>
 
-<p>This product costs £{{"%.2f"|format(price)}}</p>
+<p>This product costs £{{"%.2f"|format(price|float)}}</p>
 
 <p>Out of Stock</p>
 {% endblock %}

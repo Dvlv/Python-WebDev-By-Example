@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <table>
-    {% for product_name, price in products.items() %}
+    {% for product in products %}
     <tr>
-        <td><a href="/{{product_name}}">{{product_name}}</a></td>
-        <td>{{ "£%.2f"|format(price) }}</td>
+        <td><a href="/{{product.name}}">{{product.name}}</a></td>
+        <td>{{ "£%.2f"|format(product.price|float) }}</td>
     </tr>
     {% endfor %}
 </table>
