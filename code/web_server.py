@@ -1,27 +1,18 @@
-from flask import Flask, render_template, abort
-from models.product import Product
+from flask import Flask
 
 app = Flask(__name__)
 app.secret_key = "very secret"
 
 
-@app.route("/")
-def index():
-    products = Product.select()
-    return render_template("index.html", products=products)
+from web.views.admin import admin
+from web.views.site import site
 
+from web.blueprints import site_blueprint, admin_blueprint
 
-@app.route("/<string:product_name>")
-def view_product(product_name):
-    product = Product.get_or_none(Product.name == product_name)
-
-    if not product:
-        return abort(404)
-
-    return render_template(
-        "products/view_product.html", price=product.price, product_name=product_name
-    )
+app.register_blueprint(site_blueprint)
+app.register_blueprint(admin_blueprint)
 
 
 if __name__ == "__main__":
+    print(app.url_map)
     app.run(debug=True)
