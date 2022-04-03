@@ -1,3 +1,40 @@
 <h1>Welcome to the admin!</h1>
 
-<p>You are logged in</p>
+<hr />
+
+<h2>All Products</h2>
+
+<br />
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for product in all_products %}
+        <tr>
+            <td>
+                <a href="/admin/{{product.id}}">
+                    {{product.name|title}}
+                </a>
+            </td>
+            <td>
+                £{{"%.2f"|format(product.price|float)}}
+            </td>
+            <td>
+                <button onclick="deleteProduct({{product.id}})">Delete</button>
+            </td>
+        </li>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    function deleteProduct(productId) {
+        console.log("deleting product", productId);
+    }
+</script>
