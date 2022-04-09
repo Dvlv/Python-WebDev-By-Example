@@ -41,19 +41,20 @@
 
 <script>
     async function deleteProduct(productId) {
-            var fd = new FormData();
-            fd.set('product_id', productId);
+        var fd = new FormData();
+        fd.set('product_id', productId);
 
-            var response = await fetch(
-                '{{url_for("admin.delete_product")}}',
-                {
-                        method: 'POST',
-                        body: fd,
-                    } 
-            );
+        var response = await fetch(
+            '{{url_for("admin.delete_product")}}',
+            {
+                method: 'POST',
+                body: fd,
+            } 
+        );
 
-            var res_json = await response.json()
-            alert(res_json.message);
-            location.reload();
+        var res_json = await response.json()
+        alert(res_json.message);
+
+        location.reload();
     }
 </script>

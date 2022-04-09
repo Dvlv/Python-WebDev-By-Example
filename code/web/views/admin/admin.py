@@ -76,10 +76,9 @@ def save_product():
 @admin_blueprint.route("/delete-product", methods=["POST"])
 def delete_product():
     product_id = request.form.get("product_id")
-    if product_id:
-        product = Product.get_or_none(Product.id == product_id)
-        if not product:
-            return {"success": False, "message": "Product not found"}, 400
+    product = Product.get_or_none(Product.id == product_id)
+    if not product:
+        return {"success": False, "message": "Product not found"}, 400
 
     Product.delete().where(Product.id == product_id).execute()
 
