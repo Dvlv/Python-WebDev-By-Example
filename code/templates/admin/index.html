@@ -6,6 +6,7 @@
 
 <br />
 
+
 <table>
     <thead>
         <tr>
@@ -33,8 +34,26 @@
     </tbody>
 </table>
 
+<hr />
+
+<a href="{{url_for('admin.create_product')}}">Create new Product</a>
+
+
 <script>
-    function deleteProduct(productId) {
-        console.log("deleting product", productId);
+    async function deleteProduct(productId) {
+            var fd = new FormData();
+            fd.set('product_id', productId);
+
+            var response = await fetch(
+                '{{url_for("admin.delete_product")}}',
+                {
+                        method: 'POST',
+                        body: fd,
+                    } 
+            );
+
+            var res_json = await response.json()
+            alert(res_json.message);
+            location.reload();
     }
 </script>
