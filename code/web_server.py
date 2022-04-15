@@ -9,6 +9,8 @@ from web.blueprints import site_blueprint, admin_blueprint
 app.register_blueprint(site_blueprint)
 app.register_blueprint(admin_blueprint)
 
+app.config.update(SESSION_COOKIE_SAMESITE="None", SESSION_COOKIE_SECURE="True")
+
 
 if __name__ == "__main__":
     print(app.url_map)

@@ -7,6 +7,11 @@
     <body>
         <h1>Welcome to my shop!</h1>
         <hr>
+        Items in Cart: <span id="cart-items">{{cart|length}}</span>
+
+        <a href="/checkout">Checkout</a>
+        <hr>
+
         {% block content %}
         {% endblock%}
     </body>

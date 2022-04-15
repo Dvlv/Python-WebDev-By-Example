@@ -1,8 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>{{product_name}}</h2>
+<h2>{{product.name}}</h2>
 
-<p>This product costs £{{"%.2f"|format(price|float)}}</p>
+<p>This product costs £{{"%.2f"|format(product.price|float)}}</p>
 
-<p>Out of Stock</p>
+<button onclick="addToCart({{product.id}})">Add to Cart</button>
+
+<script>
+    async function addToCart(productId) {
+        var fd = new FormData();
+        fd.set('product_id', productId);
+
+        var response = await fetch(
+            '{{url_for("site.add_product_to_cart")}}', 
+            {
+                method: 'POST', 
+                body: fd,
+            }
+        );
+
+        var res_json = await response.json();
+        var cartItems = res_json.cart_items;
+        document.getElementById("cart-items").innerText = cartItems;
+    }
+</script>
 {% endblock %}
