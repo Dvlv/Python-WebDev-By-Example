@@ -1,9 +1,26 @@
 {% extends "base.html" %}
+
 {% block content %}
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table tr td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+        }
+    </style>
+
     <h1>Checkout</h1>
     <hr>
 
     <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
         {% for item in cart_items %}
             <tr>
                 <td>{{item.name}}</td>
@@ -12,9 +29,9 @@
             </tr>
         {% endfor %}
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
         </tr>
         <tr>
             <td><b>Total</b></td>
@@ -22,4 +39,19 @@
             <td>£{{"%.2f"|format(total_price)}}</td>
         </tr>
     </table>
+
+    <br>
+    <hr>
+
+    <h2>Complete your Purchase</h2>
+
+    <form name="checkout-form" method="POST">
+        <label for="email">Email Address</label>
+        <input type="email" name="email">
+
+        <br>
+        <br>
+
+        <input type="submit" value="Checkout">
+    </form>
 {% endblock %}

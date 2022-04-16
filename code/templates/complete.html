@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Order Complete!</h1>
+
+    <hr>
+
+    <h2>Thanks for your order!</h2>
+    <br>
+    <h3>Confirmation will be sent to {{order.email}}</h3>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        {% for name, price_info in order.products.items() %}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{price_info["quantity"]}}</td>
+                <td>£{{"%.2f"|format(price_info["total"])}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    <a href="/">Continue Shopping</a>
+{% endblock %}
