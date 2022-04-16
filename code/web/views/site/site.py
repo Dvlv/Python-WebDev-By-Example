@@ -63,8 +63,8 @@ def checkout():
         user_email = request.form.get("email")
         order = Order()
         order.email = user_email
-        order.timestamp_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         order.products = cart_products
+        order.timestamp_created = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         order.save()
 
         session["recent_order_id"] = order.id
@@ -78,7 +78,6 @@ def checkout():
 
 @site_blueprint.route("/complete")
 def complete():
-    order = None
     if "recent_order_id" not in session:
         return redirect(url_for("site.index"))
 
