@@ -24,7 +24,7 @@ def view_product(product_name):
 
 @site_blueprint.route("/add-product-to-cart", methods=["POST"])
 def add_product_to_cart():
-    product_id = request.form.get("product_id")
+    product_id = request.form.get("product_id", type=int)
     if not product_id:
         return {"success": False, "cart_items": len(session["cart"])}
 

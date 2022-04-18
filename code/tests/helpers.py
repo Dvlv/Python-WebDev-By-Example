@@ -1,8 +1,16 @@
+from datetime import datetime
 from functools import wraps
 from playhouse.sqlite_ext import SqliteExtDatabase
+from models.admin_user import AdminUser
+from models.order import Order
 from models.product import Product
 
-__all__ = ["create_test_product", "with_test_db"]
+__all__ = [
+    "create_test_product",
+    "create_test_admin_user",
+    "create_test_order",
+    "with_test_db",
+]
 
 
 def with_test_db(dbs: tuple):
@@ -30,3 +38,24 @@ def create_test_product(name: str, price: str):
     p.save()
 
     return p
+
+
+def create_test_admin_user(username: str, password: str):
+    from werkzeug.security import generate_password_hash
+
+    u = AdminUser()
+    u.username = username
+    u.password = generate_password_hash(password)
+    u.save()
+
+    return u
+
+
+def create_test_order(email: str, products: dict):
+    o = Order()
+    o.email = email
+    o.timestamp_created = datetime.now().format("%Y-%m-%d %H:%M:%S")
+    o.products = products
+    o.save()
+
+    return o
