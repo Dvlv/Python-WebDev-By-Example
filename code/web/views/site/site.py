@@ -3,6 +3,7 @@ from flask import abort, render_template, session, request, url_for, redirect
 
 from models.order import Order
 from models.product import Product
+from tasks.send_email import send_confirmation_email
 from web.blueprints import site_blueprint
 
 
@@ -85,5 +86,7 @@ def complete():
 
     session.pop("recent_order_id")
     session["cart"] = []
+
+    send_confirmation_email.delay(order.email)
 
     return render_template("complete.html", order=order)

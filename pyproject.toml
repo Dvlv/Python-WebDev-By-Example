@@ -9,6 +9,8 @@ python = "^3.10"
 Flask = "^2.0.2"
 peewee = "^3.14.8"
 pytest = "^7.0.0"
+celery = "^5.2.6"
+cached-property = "^1.5.2"
 
 [tool.poetry.dev-dependencies]
 

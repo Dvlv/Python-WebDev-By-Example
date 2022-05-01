@@ -1,7 +1,10 @@
 from flask import Flask
+from celery import Celery
 
 app = Flask(__name__)
 app.secret_key = "very secret"
+
+celery = Celery("My Shop", broker="memory://")
 
 from web.views import admin, site
 from web.blueprints import site_blueprint, admin_blueprint
