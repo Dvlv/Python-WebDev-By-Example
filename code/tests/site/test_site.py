@@ -83,7 +83,8 @@ def test_checkout_get():
 
 
 @with_test_db((Order, Product))
-def test_checkout_post():
+def test_checkout_post(mocker):
+    mock_send_confirmation_email_delay(mocker)
     p = create_test_product("Floss", "1.50")
     p2 = create_test_product("Toothbrush", "2.99")
 
@@ -112,3 +113,8 @@ def test_checkout_post():
         "Floss": {"total": 3.0, "quantity": 2},
         "Toothbrush": {"total": 2.99, "quantity": 1},
     }
+
+    from tasks.send_email import send_confirmation_email
+
+    send_confirmation_email.delay.assert_called_once()
+    assert send_confirmation_email.delay.call_args[0][0] == "a@a.com"

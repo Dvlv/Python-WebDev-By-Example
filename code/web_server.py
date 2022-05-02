@@ -1,10 +1,16 @@
-from flask import Flask
+import sys
+
 from celery import Celery
+from flask import Flask
 
 app = Flask(__name__)
 app.secret_key = "very secret"
 
-celery = Celery("My Shop", broker="memory://")
+if "pytest" in sys.modules:
+    celery = Celery("My Shop", broker="memory://")
+else:
+    celery = Celery("My Shop", broker="redis://localhost:6379/0")
+
 
 from web.views import admin, site
 from web.blueprints import site_blueprint, admin_blueprint

@@ -9,6 +9,7 @@ __all__ = [
     "create_test_product",
     "create_test_admin_user",
     "create_test_order",
+    "mock_send_confirmation_email_delay",
     "with_test_db",
 ]
 
@@ -59,3 +60,9 @@ def create_test_order(email: str, products: dict):
     o.save()
 
     return o
+
+
+def mock_send_confirmation_email_delay(mocker):
+    from tasks.send_email import send_confirmation_email
+
+    mocker.patch.object(send_confirmation_email, "delay", autospec=True)
