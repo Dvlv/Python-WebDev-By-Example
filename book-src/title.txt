@@ -1,0 +1,11 @@
+---
+title:
+- type: main
+  text: Python Web Development By Example
+- type: subtitle
+  text: Using Flask, Peewee, and Pytest
+description: A hands-on introduction to web development in python
+author: Dvlv
+rights: Creative Commons Share Alike 4.0 (CC BY-SA)
+language: en-GB
+---
