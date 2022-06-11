@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Dvlv" />
   <meta name="description" content="A hands-on introduction to web development in python" />
-  <title>title</title>
+  <title>Learn Flask By Example</title>
   <style>
     html {
       line-height: 1.5;
@@ -215,9 +215,108 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">truetrue</h1>
+<h1 class="title">Python WebDev By Example</h1>
+<h2 class="title">With Flask, Peewee and Pytest</h2>
 <p class="author">Dvlv</p>
 </header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#chapter-0">Chapter 0</a>
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#coverage-and-assumptions">Coverage and Assumptions</a></li>
+</ul></li>
+<li><a href="#installing-pyenv-and-poetry">Installing Pyenv and Poetry</a>
+<ul>
+<li><a href="#installing-python-via-pyenv">Installing Python via Pyenv</a></li>
+<li><a href="#installing-dependencies-with-poetry">Installing dependencies with poetry</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#chapter-1">Chapter 1</a>
+<ul>
+<li><a href="#flask-beginnings">Flask Beginnings</a>
+<ul>
+<li><a href="#hello-flask">Hello Flask</a></li>
+<li><a href="#rendering-html">Rendering HTML</a></li>
+<li><a href="#using-variables-in-flask-routes">Using variables in Flask routes</a></li>
+<li><a href="#template-inheritance">Template Inheritance</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#chapter-2">Chapter 2</a>
+<ul>
+<li><a href="#using-peewee-with-a-database">Using Peewee with a Database</a>
+<ul>
+<li><a href="#making-a-database">Making a database</a></li>
+<li><a href="#using-our-database">Using our Database</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#chapter-3">Chapter 3</a>
+<ul>
+<li><a href="#testing-with-pytest">Testing with Pytest</a></li>
+</ul></li>
+<li><a href="#chapter-4">Chapter 4</a>
+<ul>
+<li><a href="#adding-admin-controls">Adding Admin Controls</a>
+<ul>
+<li><a href="#route-guards-in-flask">Route Guards in Flask</a></li>
+<li><a href="#adding-an-admin">Adding an Admin</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#chapter-5">Chapter 5</a>
+<ul>
+<li><a href="#adding-purchase-abilities">Adding Purchase Abilities</a>
+<ul>
+<li><a href="#creating-a-cart">Creating a Cart</a></li>
+<li><a href="#checking-out">Checking Out</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#chapter-6">Chapter 6</a>
+<ul>
+<li><a href="#more-testing">More Testing</a>
+<ul>
+<li><a href="#testing-the-admin">Testing the Admin</a></li>
+<li><a href="#testing-the-shop">Testing the Shop</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#chapter-7">Chapter 7</a>
+<ul>
+<li><a href="#background-tasks-with-celery">Background Tasks with Celery</a>
+<ul>
+<li><a href="#heavy-processing">Heavy Processing</a></li>
+<li><a href="#adding-celery">Adding Celery</a></li>
+<li><a href="#adjusting-the-tests">Adjusting the Tests</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#appendix-1---peewee">Appendix 1 - Peewee</a>
+<ul>
+<li><a href="#basics">Basics</a>
+<ul>
+<li><a href="#selecting">Selecting</a></li>
+<li><a href="#conditions">Conditions</a></li>
+<li><a href="#getting-a-single-instance">Getting a Single Instance</a></li>
+</ul></li>
+<li><a href="#advanced">Advanced</a>
+<ul>
+<li><a href="#aliases">Aliases</a></li>
+<li><a href="#joins">Joins</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#group-by-order-by-limit-offset">Group By, Order By, Limit, Offset</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#appendix-2---pytest">Appendix 2 - Pytest</a>
+<ul>
+<li><a href="#basics-1">Basics</a></li>
+<li><a href="#advanced-1">Advanced</a>
+<ul>
+<li><a href="#fixtures">Fixtures</a></li>
+<li><a href="#mocking">Mocking</a></li>
+<li><a href="#spying">Spying</a></li>
+<li><a href="#patching">Patching</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
 <h1 id="chapter-0">Chapter 0</h1>
 <h2 id="introduction">Introduction</h2>
 <p>Welcome to this e-book teaching how to create web applications using primarily Flask, Peewee, and Pytest.</p>
@@ -464,9 +563,9 @@
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Meta:</span>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        table_name <span class="op">=</span> <span class="st">&quot;product&quot;</span></span></code></pre></div>
-<p>In our init file we import Peewee’s own <code>Model</code> class and its class for connecting to a Sqlite database. Using these we can define a <code>BaseModel</code> class which will act as a child class for each of our models. Inside this class, we include another named <code>Meta</code> which is used by Peewee to point the models to their database. As we are using Sqlite for this book, we can simply point this to a file named <code>database.db</code>.</p>
+<p>In our init file we import Peewee’s own <code>Model</code> class and its class for connecting to a Sqlite database. Using these we can define a <code>BaseModel</code> class which will act as a parent class for each of our models. Inside this class, we include another named <code>Meta</code> which is used by Peewee to point the models to their database. As we are using Sqlite for this book, we can simply point this to a file named <code>database.db</code>.</p>
 <p>Our <code>Product</code> model imports our new <code>BaseModel</code> class and inherits from it. The column datatypes from Peewee’s Sqlite extension are also brought in.</p>
-<p>Models are linked to their database columns by providing class attribues which are instances of Peewee’s column types. Here we have an <code>AutoField</code> - used to denote a primary key in other database engines such as Postgres or MySQL - and two <code>TextField</code>s to store each product’s name and price.</p>
+<p>Models are linked to their database columns by providing class attribues which are instances of Peewee’s column types. Here we have an <code>AutoField</code> - used to denote a primary key - and two <code>TextField</code>s to store each product’s name and price.</p>
 <p>Another <code>Meta</code> subclass is used on our <code>Product</code> model to indicate its table name in the Sqlite database.</p>
 <p>Speaking of which, let’s get this prepared now.</p>
 <h4 id="database-migrations">Database Migrations</h4>
@@ -495,7 +594,7 @@ Successfully validated 2 migrations (execution time 00:00.006s)
 Creating Schema History table &quot;main&quot;.&quot;flyway_schema_history&quot; ...
 Current version of schema &quot;main&quot;: &lt;&lt; Empty Schema &gt;&gt;
 Migrating schema &quot;main&quot; to version &quot;0 - baseline&quot;
-Migrating schema &quot;main&quot; to version &quot;1 - create tables&quot;
+Migrating schema &quot;main&quot; to version &quot;1 - create product table&quot;
 Successfully applied 2 migrations to schema &quot;main&quot;, now at version v1 (execution time 00:00.014s)</code></pre>
 <p>Congratulations, you now have a database!</p>
 <h5 id="skipping-flyway-and-running-migrations-manually">Skipping Flyway and Running Migrations Manually</h5>
